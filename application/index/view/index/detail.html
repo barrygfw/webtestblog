@@ -1,0 +1,19 @@
+    {extend name="frameset"/}
+    {block name="content"}
+    <!-- About Section -->
+    <section id="about" class="content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto art_detail">
+                    {volist name="detail" id="detail"}
+                        <h2 align="center">{$detail.title}</h2>
+                        <h6 align="center">作者：<i>{$detail.uid}</i></h6>
+                        <h6 align="center">更新时间：<i>{$detail.update_time}</i></h6>
+                        <p>{$detail.content}</p>
+                    {/volist}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {/block}

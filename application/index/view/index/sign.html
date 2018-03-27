@@ -1,0 +1,57 @@
+{extend name="frameset"/}
+{block name="link"}
+    <link rel="stylesheet" href="__ROOT__/static/css/sign.css">
+{/block}
+{block name="content"}
+    <!-- Intro Header -->
+    <header class="masthead">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="logindiv">
+                            <h1>注册</h1>
+                            <div class="mx-auto formbox">
+                                <form action="{:url('index/form/sign')}" method="post" onSubmit="return checkForm()">
+                                    用户名:<input type="text" required="required" id="username" name="username" class="form-control">
+                                    密  码:<input type="password" id="password" required="required" name="password" class="form-control">
+                                    确认密码:<input type="password" id="repassword" required="required" name="repassword" class="form-control">
+                                    邮  箱:<input type="email" required="required" id="email" name="email" class="form-control"><br/>
+                                    <input type="submit" name="submit" value="注册" class="btn btn-primary btn-width">
+                                </form>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{/block}
+{block name="myscript"}
+    <script type="text/javascript">
+        function checkForm(){
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var repassword = $('#repassword').val();
+            var email = $('#email').val();
+            var info = "请稍后";
+            var status = true;
+            if (password != repassword) {
+                info = "两次密码不一致";
+                status = false;
+            }
+            if (password.length < 5 || password.length > 10) {
+                info = "请输入5-10位密码";
+                status = false;
+            }
+            if(username.length < 3 || username.length > 8){
+                info = "用户名长度不符合要求";
+                status = false;
+            }
+            if(status == false){
+                window.alert(info);
+            }
+            return status;
+        }
+    </script>
+{/block}

@@ -1,0 +1,15 @@
+    {extend name="frameset"/}
+    {block name="content"}
+    <!-- Download Section -->
+    <section id="download" class="download-section content-section text-center">
+        <div class="container">
+            <div class="col-lg-8 mx-auto"> 
+                <h2>{$kind.kind}文章列表</h2>
+                {volist name="list" id="name_title"}
+                <p><a href="{:url('index/detail')}?id={$name_title.id}" style="color:white;">{$name_title.title}---<i>barry</i></a></p>
+                {/volist}
+                {$list->render()}
+            </div>
+        </div>
+    </section>
+    {/block}
