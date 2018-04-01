@@ -1,0 +1,41 @@
+{extend name="frameset"/}
+{block name="adminstyle"}
+    <link rel="stylesheet" type="text/css" href="__ROOT__/static/css/admin.css">
+{/block}
+{block name="admincontent"}
+	<div class="con-admin">
+        <div class="box-admin">
+            <div class="table">
+                <table border="0" cellpadding="20">
+                    <thead>
+                        <th>标题</th>
+                        <th>分类</th>
+                        <th>内容</th>
+                        <th>作者</th>
+                        <th>更新时间</th>
+                        <th>操作</th>
+                    </thead>
+                    <tbody>
+                        {volist name="article" id="vo"}
+                        <tr>
+                            <td>{$vo.title|msubstr=0,5,'utf-8',true}</td>
+                            <td>{$vo.pid}</td>
+                            <td>{$vo.content|msubstr=5,5,'utf-8',true}</td>
+                            <td>{$vo.uid}</td>
+                            <td>{$vo.update_time}</td>
+                            <td>
+                                <a href="{:url('admin/admin/editarticle')}?id={$vo.id}">编辑</a>
+                                <a href="{:url('admin/admin/delarticle')}?id={$vo.id}">删除</a>
+                            </td>
+                        </tr>
+                        {/volist}
+
+                    </tbody>
+
+                </table>
+                {$article->render()}
+            </div>
+            <a href="{:url('admin/admin/addatc')}"><div class="add">新增</div></a>
+        </div>
+    </div>
+{/block}

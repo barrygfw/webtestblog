@@ -7,9 +7,7 @@ use app\index\model\User;
 */
 class Form extends Base
 {
-	public function _initialize() {
-        Parent::category();
-    }
+
 	public function login(){
 		$post = $_POST;
 		$user = User::get([

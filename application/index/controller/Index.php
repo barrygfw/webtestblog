@@ -7,7 +7,7 @@ use app\index\model\User;
 class Index extends Base
 {
     public function _initialize() {
-        Parent::category();
+        Parent::initialize();
     }
     public function index()
     {

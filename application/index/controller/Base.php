@@ -10,7 +10,7 @@ class Base extends Controller
         $this->redirect("index/index");
     }
 
-	public function category(){
+	public function initialize(){
 		if(cookie('username')){
 			session('username',cookie('username'));
 		}

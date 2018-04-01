@@ -13,13 +13,13 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '193.112.28.109',
+    'hostname'        => 'localhost',
     // 数据库名
-    'database'        => 'emrys',
+    'database'        => 'emrysblog',
     // 用户名
     'username'        => 'root',
     // 密码
-    'password'        => 'root',
+    'password'        => '',
     // 端口
     'hostport'        => '3306',
     // 连接dsn

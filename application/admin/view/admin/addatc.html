@@ -1,0 +1,71 @@
+{extend name="frameset"/}
+{block name="adminstyle"}
+    <link rel="stylesheet" type="text/css" href="__ROOT__/static/css/add-atc.css">
+    <script src="__JS__/ueditor/ueditor.config.js"></script>
+    <script src="__JS__/ueditor/ueditor.all.min.js"></script>
+{/block}
+{block name="admincontent"}
+	<div class="con-login">
+        <div class="box-login">
+            {empty name="artdetail"}
+                <h1>新增文章</h1>
+                <form class="login-form" action="{:url('admin/admin/addarticle')}" method="post">
+                    <div class="user">
+                        <label>标题</label>
+                        <input type="text" name="title" required="required">
+                    </div>
+                    <div class="pass">
+                        <label>分类</label>
+                        <select class="select" name="category">
+                            {volist name="category" id="vo"}
+                                <option value="{$vo.id}">{$vo.kind}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                    <div class="user">
+                        <label>简介</label>
+                        <input type="text" name="introduce" required="required">
+                    </div>
+                    <div class="pass">
+                        <label>内容</label>
+                        <!-- <textarea name="content" required="required"></textarea> -->
+                        <script id="editor" type="text/plain"></script>
+                    </div>
+                    <input type="submit" class="login-sub" value="添加">
+                </form>
+            {else /}
+                <h1>编辑文章</h1>
+                <form class="login-form" action="{:url('admin/admin/updatearticle')}?id={$artdetail.id}" method="post">
+                    <div class="user">
+                        <label>标题</label>
+                        <input type="text" name="title" value="{$artdetail.title}">
+                    </div>
+                    <div class="pass">
+                        <label>分类</label>
+                        <select class="select" name="category">
+                            {volist name="category" id="vo"}
+                                <option value="{$vo.id}">{$vo.kind}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                    <div class="user">
+                        <label>简介</label>
+                        <input type="text" name="introduce" value="{$artdetail.introduce}">
+                    </div>
+                    <div class="pass">
+                        <label>内容</label>
+                        <script id="editor" type="text/plain">{$artdetail.content}</script>
+                        <!-- <textarea name="content">{$artdetail.content}</textarea> -->
+                    </div>
+                    <input type="submit" class="login-sub" value="更新">
+                </form>
+            {/empty}
+        </div>
+    </div>
+{/block}
+{block name="javascript"}
+    <script type="text/javascript">
+        var ue = UE.getEditor('editor');
+    </script>
+{/block}
+
