@@ -1,4 +1,24 @@
     {extend name="frameset"/}
+    {block name="link"}
+        <style type="text/css">
+            .comment{
+                border:2px #ccc solid;
+                border-radius: 5px;
+                padding-left: 5%;
+                padding-top: 1%;
+            }
+            .comment h5{
+                margin-bottom: 5px;
+            }
+            #commentext{
+                width:100%;
+                height: 10em;
+            }
+            .btna{
+                margin-bottom: 10px;
+            }
+        </style>
+    {/block}
     {block name="content"}
     <!-- About Section -->
     <section id="about" class="content-section">
@@ -11,9 +31,85 @@
                         <h6 align="center">更新时间：<i>{$detail.update_time}</i></h6>
                         <p>{$detail.content}</p>
                     {/volist}
+                    <hr><h4>评论区</h4>
+                    <div class="comment">
+                        <h5>看评论</h5>
+                        <div id="comcontent"></div>
+                        <hr>
+                        <h5>写评论</h5>
+                        <textarea id="commentext"></textarea>
+                        <button class="btn btna">提交</button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     </section>
 
+    {/block}
+
+    {block name="myscript"}
+        <script type="text/javascript">
+            function getMyDate(str){  
+                var oDate = new Date(str),  
+                oYear = oDate.getFullYear(),  
+                oMonth = oDate.getMonth()+1,  
+                oDay = oDate.getDate(),  
+                oHour = oDate.getHours(),  
+                oMin = oDate.getMinutes(),  
+                oSen = oDate.getSeconds(),  
+                oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间  
+                return oTime;  
+            }; 
+                //补0操作
+            function getzf(num){  
+                if(parseInt(num) < 10){  
+                    num = '0'+num;  
+                }  
+                return num;  
+            }
+            var aid = {$detail.id};
+            function gfw(){
+                $.ajax({
+                    url:"getcomment",
+                    method:'post',
+                    data:{"aid":aid},
+                    success:function(res){
+                        var html = '<dl>';
+                        for(i=0;i<res.length;i++){
+                            var cretime = getMyDate(res[i].create_time*1000);
+                            html = html+'<dt>'+res[i].name+' <i>'+cretime+'</i></dt><dd>'+res[i].content+'</dd>';
+                        }
+                        html = html + '</dl>';
+                        $("#comcontent").html(html);
+                    }
+                })
+            }
+            gfw();
+            var uid = "<?php echo session('uid'); ?>";
+            $(".btna").click(function(){
+                var value = $("#commentext").val();
+                if(uid){
+                    if(value){
+                        $.ajax({
+                            url:"subcomment",
+                            method:'post',
+                            data:{"uid":uid,"aid":aid,"content":value},
+                            success:function(res){
+                                if(res){
+                                    alert('评论成功');
+                                    gfw();
+                                }else{
+                                    alert('出错了，评论失败,重新试试');
+                                }
+                            }
+                        })
+                    }else{
+                        alert('填写内容为空');
+                    }   
+                }else{
+                    alert('请先登录');
+                }
+            })
+        </script>
     {/block}

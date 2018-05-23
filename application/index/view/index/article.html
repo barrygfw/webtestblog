@@ -1,15 +1,38 @@
     {extend name="frameset"/}
+    {block name="link"}
+        <style type="text/css">
+            .aaa{
+                margin-bottom: 10px;
+                /*width:50%;*/
+
+            }
+            #name{
+                display: inline-block;
+                width: auto;
+            }
+        </style>
+    {/block}
     {block name="content"}
     <!-- Download Section -->
     <section id="download" class="download-section content-section text-center">
         <div class="container">
+
             <div class="col-lg-8 mx-auto"> 
                 <h2>{$kind.kind}文章列表</h2>
+                <form class="aaa" method="post" action="{:url('index/index/getsearch')}">
+                    <input type="text" class="form-control" id="name" name="title" placeholder="请输入文章名称">
+                    <input type="submit" class="btn" value="查找">
+                </form>
                 {volist name="list" id="name_title"}
-                <p><a href="{:url('index/detail')}?id={$name_title.id}" style="color:white;">{$name_title.title}---<i>barry</i></a></p>
+                <p id="title"><a href="{:url('index/detail')}?id={$name_title.id}" style="color:white;">{$name_title.title}---<i>{$name_title.uid}</i></a></p>
                 {/volist}
                 {$list->render()}
             </div>
         </div>
     </section>
+    {/block}
+    {block name="myscript"}
+        <script type="text/javascript">
+            
+        </script>
     {/block}

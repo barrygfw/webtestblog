@@ -18,7 +18,9 @@ class Form extends Base
 				$user->login_last_time = time();
 				$user->login_times++;
 				if(false !== $user->save()){
+					session('uid',$user->id);
 					session('username',$post['username']);
+					cookie('uid',$user->id,3600);
 		            cookie("username", $post['username'], 3600);
 					$this->success('登录成功','index/index');
 				}	
@@ -32,7 +34,9 @@ class Form extends Base
 
 	public function logout(){
 		session('username',null);
+		session('uid',null);
 		cookie('username',null);
+		cookie('uid',null);
 		if(session('username')){
 			$this->error('注销失败','index/index');
 		}else{

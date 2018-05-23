@@ -14,6 +14,9 @@ class admin extends Controller{
 
 	public function admin(){
 		$id = User::where('user_name',session('username'))->value('id');
+		if($id == 1){
+			
+		}
 		$res = Detail::where('uid',$id)->paginate(4);
 		foreach ($res as $key => $value) {
 			$category = Db::name('article')->where('id',$value->pid)->value('kind');
